@@ -1,36 +1,40 @@
+import java.util.Scanner;
 public class main {
     public static void main(String[] args) {
         // 1. Crear una instancia de CuentaBancaria
         System.out.println("--- Creación de Cuenta ---");
-        CuentaBancaria miCuenta = new CuentaBancaria("1234567890", "Ana Gómez", 1500.50);
+        CuentaBancaria miCuenta = new CuentaBancaria("1234567890", "Ana Gómez", 1500000);
         miCuenta.mostrarDatos();
 
-        // 2. Probar el método depositar
-        System.out.println("\n--- Prueba de Depósito ---");
-        miCuenta.depositar(250.00);
+        Scanner sc = new Scanner(System.in);
+       String opcion = ""; // Declaramos afuera para usarla abajo
 
-        // 3. Probar el método retirar (con fondos suficientes)
-        System.out.println("\n--- Prueba de Retiro Exitoso ---");
-        miCuenta.retirar(100.00);
+do {
+    System.out.println("¿Quiere depositar, retirar o salir?");
+    opcion = sc.next(); // Usamos next() para leer una palabra
 
-        // 4. Probar el método retirar (sin fondos suficientes)
-        System.out.println("\n--- Prueba de Retiro Fallido ---");
-        miCuenta.retirar(2000.00);
+    switch (opcion) {
+        case "depositar":
+            System.out.println("Ingrese el monto a depositar: ");
+            double monto = sc.nextDouble();
+            miCuenta.depositar(monto);
+            break;
+        case "retirar":
+            System.out.println("Ingrese el monto a retirar: ");
+            monto = sc.nextDouble();
+            miCuenta.retirar(monto);
+            break;
+        case "salir":
+            System.out.println("¡Hasta luego!");
+            break;
+        default:
+            System.out.println("Opción no válida");
+    }
+    miCuenta.mostrarDatos();
 
-        // 5. Mostrar datos actualizados
-        miCuenta.mostrarDatos();
-        
-        // Uso de Getter
-        System.out.println("Titular actual (usando getTitular): " + miCuenta.getTitular());
-        
-        // Uso de Setter
-        miCuenta.setTitular("Ana María Gómez Pérez");
-        System.out.println("Titular modificado (usando setTitular): " + miCuenta.getTitular());
-        
-        // El saldo final es visible a través del Getter
-        System.out.println("Saldo final (usando getSaldo): " + miCuenta.getSaldo());
-
-        // Mostrar datos finales
-        miCuenta.mostrarDatos();
+} while (!opcion.equals("salir"));
     }
 }
+
+    
+
